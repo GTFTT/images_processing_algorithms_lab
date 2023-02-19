@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import 'antd/dist/reset.css';
 import './App.css';
 import {Menu} from "./Components/Menu/Menu";
 import {SobelFilter} from "./Pages/SobelFilter/SobelFilter";
