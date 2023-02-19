@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import 'antd/dist/reset.css';
 import './App.css';
 import {Menu} from "./Components/Menu/Menu";
-import {SobelFilter} from "./Pages/SobelFilter/SobelFilter";
+import {SobelFilterLibrary} from "./Pages/SobelFilterLibrary/SobelFilterLibrary";
 
 function App() {
   const [selectedMenuItem, setSelectedMenuItem] = useState(0);
@@ -16,8 +16,8 @@ function App() {
         menuItems={[
           {
             id: 0,
-            label: `Sobel's filter`,
-            component: <SobelFilter />
+            label: `Sobel's filter from library`,
+            component: <SobelFilterLibrary />
           }
         ]}
       />

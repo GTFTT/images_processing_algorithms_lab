@@ -3,7 +3,7 @@ import { Image as AntdImage } from 'antd';
 import PrinterImage from './3dprinter.jpg';
 const Sobel = require('sobel');
 
-export function SobelFilter(): JSX.Element {
+export function SobelFilterLibrary(): JSX.Element {
 
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
