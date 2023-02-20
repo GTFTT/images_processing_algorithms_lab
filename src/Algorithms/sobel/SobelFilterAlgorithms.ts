@@ -18,31 +18,53 @@ export class SobelFilterAlgorithms {
     ];
   }
   
-  public applyHorizontalSobel(imageProcessor: ImageProcessor): ImageProcessor {
-    const hSobelData = imageProcessor.convertImageToGrayScale();
-    for (let x = 0; x < hSobelData.height; x++) {
-      for (let y = 0; y < hSobelData.width; y++) {
-        const pixelX = (
-          (this.kernelH[0][0] * hSobelData.getPixelValueAt(x - 1, y - 1, ColorChannels.RED)) +
-          (this.kernelH[0][1] * hSobelData.getPixelValueAt(x, y - 1, ColorChannels.RED)) +
-          (this.kernelH[0][2] * hSobelData.getPixelValueAt(x + 1, y - 1, ColorChannels.RED)) +
-          (this.kernelH[1][0] * hSobelData.getPixelValueAt(x - 1, y, ColorChannels.RED)) +
-          (this.kernelH[1][1] * hSobelData.getPixelValueAt(x, y, ColorChannels.RED)) +
-          (this.kernelH[1][2] * hSobelData.getPixelValueAt(x + 1, y, ColorChannels.RED)) +
-          (this.kernelH[2][0] * hSobelData.getPixelValueAt(x - 1, y + 1, ColorChannels.RED)) +
-          (this.kernelH[2][1] * hSobelData.getPixelValueAt(x, y + 1, ColorChannels.RED)) +
-          (this.kernelH[2][2] * hSobelData.getPixelValueAt(x + 1, y + 1, ColorChannels.RED))
-        );
+  public applyHorizontalSobel(image: ImageProcessor): ImageProcessor {
+    for (let x = 0; x < image.height; x++) {
+      for (let y = 0; y < image.width; y++) {
+        const pixelH = this.calculateKernelMagnitude(x, y, this.kernelH, image);
 
-        const magnitude = Math.round(pixelX);
+        const magnitude = Math.round(pixelH);
 
-        hSobelData.setPixelValueAt(x, y, ColorChannels.RED, magnitude);
-        hSobelData.setPixelValueAt(x, y, ColorChannels.GREEN, magnitude);
-        hSobelData.setPixelValueAt(x, y, ColorChannels.BLUE, magnitude);
+        image.setPixelValueAt(x, y, ColorChannels.RED, magnitude);
+        image.setPixelValueAt(x, y, ColorChannels.GREEN, magnitude);
+        image.setPixelValueAt(x, y, ColorChannels.BLUE, magnitude);
       }
     }
 
-    return hSobelData;
+    return image;
+  }
+
+  public applyVerticalSobel(image: ImageProcessor): ImageProcessor {
+    for (let x = 0; x < image.height; x++) {
+      for (let y = 0; y < image.width; y++) {
+        const pixelV = this.calculateKernelMagnitude(x, y, this.kernelV, image);
+
+        const magnitude = Math.round(pixelV);
+
+        image.setPixelValueAt(x, y, ColorChannels.RED, magnitude);
+        image.setPixelValueAt(x, y, ColorChannels.GREEN, magnitude);
+        image.setPixelValueAt(x, y, ColorChannels.BLUE, magnitude);
+      }
+    }
+
+    return image;
+  }
+
+  public applyCombinedSobel(image: ImageProcessor): ImageProcessor {
+    for (let x = 0; x < image.height; x++) {
+      for (let y = 0; y < image.width; y++) {
+        const pixelH = this.calculateKernelMagnitude(x, y, this.kernelH, image);
+        const pixelV = this.calculateKernelMagnitude(x, y, this.kernelV, image);
+
+        const magnitude = Math.round(Math.sqrt(Math.pow(pixelH, 2) + Math.pow(pixelV, 2)));
+
+        image.setPixelValueAt(x, y, ColorChannels.RED, magnitude);
+        image.setPixelValueAt(x, y, ColorChannels.GREEN, magnitude);
+        image.setPixelValueAt(x, y, ColorChannels.BLUE, magnitude);
+      }
+    }
+
+    return image;
   }
 
   private calculateKernelMagnitude(row: number, col: number, kernel: number[][], image: ImageProcessor) {
