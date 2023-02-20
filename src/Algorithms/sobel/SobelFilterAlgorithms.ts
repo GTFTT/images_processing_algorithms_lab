@@ -19,15 +19,15 @@ export class SobelFilterAlgorithms {
   }
   
   public applyHorizontalSobel(image: ImageProcessor): ImageProcessor {
-    for (let x = 0; x < image.height; x++) {
-      for (let y = 0; y < image.width; y++) {
-        const pixelH = this.calculateKernelMagnitude(x, y, this.kernelH, image);
+    for (let row = 0; row < image.height; row++) {
+      for (let col = 0; col < image.width; col++) {
+        const pixelH = this.calculateKernelMagnitude(row, col, this.kernelH, image);
 
         const magnitude = Math.round(pixelH);
 
-        image.setPixelValueAt(x, y, ColorChannels.RED, magnitude);
-        image.setPixelValueAt(x, y, ColorChannels.GREEN, magnitude);
-        image.setPixelValueAt(x, y, ColorChannels.BLUE, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.RED, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.GREEN, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.BLUE, magnitude);
       }
     }
 
@@ -35,15 +35,15 @@ export class SobelFilterAlgorithms {
   }
 
   public applyVerticalSobel(image: ImageProcessor): ImageProcessor {
-    for (let x = 0; x < image.height; x++) {
-      for (let y = 0; y < image.width; y++) {
-        const pixelV = this.calculateKernelMagnitude(x, y, this.kernelV, image);
+    for (let row = 0; row < image.height; row++) {
+      for (let col = 0; col < image.width; col++) {
+        const pixelV = this.calculateKernelMagnitude(row, col, this.kernelV, image);
 
         const magnitude = Math.round(pixelV);
 
-        image.setPixelValueAt(x, y, ColorChannels.RED, magnitude);
-        image.setPixelValueAt(x, y, ColorChannels.GREEN, magnitude);
-        image.setPixelValueAt(x, y, ColorChannels.BLUE, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.RED, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.GREEN, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.BLUE, magnitude);
       }
     }
 
@@ -51,16 +51,16 @@ export class SobelFilterAlgorithms {
   }
 
   public applyCombinedSobel(image: ImageProcessor): ImageProcessor {
-    for (let x = 0; x < image.height; x++) {
-      for (let y = 0; y < image.width; y++) {
-        const pixelH = this.calculateKernelMagnitude(x, y, this.kernelH, image);
-        const pixelV = this.calculateKernelMagnitude(x, y, this.kernelV, image);
+    for (let row = 0; row < image.height; row++) {
+      for (let col = 0; col < image.width; col++) {
+        const pixelH = this.calculateKernelMagnitude(row, col, this.kernelH, image);
+        const pixelV = this.calculateKernelMagnitude(row, col, this.kernelV, image);
 
         const magnitude = Math.round(Math.sqrt(Math.pow(pixelH, 2) + Math.pow(pixelV, 2)));
 
-        image.setPixelValueAt(x, y, ColorChannels.RED, magnitude);
-        image.setPixelValueAt(x, y, ColorChannels.GREEN, magnitude);
-        image.setPixelValueAt(x, y, ColorChannels.BLUE, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.RED, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.GREEN, magnitude);
+        image.setPixelValueAt(row, col, ColorChannels.BLUE, magnitude);
       }
     }
 
