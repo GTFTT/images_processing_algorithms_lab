@@ -61,13 +61,31 @@ export class ImageProcessor {
     }
   }
 
-  public convertImageToGrayScale(): ImageProcessor {
-    const grayscaleData: Uint8ClampedArray = new Uint8ClampedArray(this.pixelsArray.length);
+  public duplicate(): ImageProcessor {
     const newImageProcessor = new ImageProcessor(
-      grayscaleData,
+      new Uint8ClampedArray(this.pixelsArray.length),
       this.width,
       this.height,
     )
+    for (let row = 0; row < this.height; row++) {
+      for (let col = 0; col < this.width; col++) {
+        const r = this.getPixelValueAt(row, col, ColorChannels.RED);
+        const g = this.getPixelValueAt(row, col, ColorChannels.GREEN);
+        const b = this.getPixelValueAt(row, col, ColorChannels.BLUE);
+        const a = this.getPixelValueAt(row, col, ColorChannels.ALPHA);
+
+        newImageProcessor.setPixelValueAt(row, col, ColorChannels.RED, r);
+        newImageProcessor.setPixelValueAt(row, col, ColorChannels.GREEN, g);
+        newImageProcessor.setPixelValueAt(row, col, ColorChannels.BLUE, b);
+        newImageProcessor.setPixelValueAt(row, col, ColorChannels.ALPHA, a);
+      }
+    }
+
+    return newImageProcessor;
+  }
+
+  public convertImageToGrayScale(): ImageProcessor {
+    const newImageProcessor = this.duplicate();
 
     for (let row = 0; row < this.height; row++) {
       for (let col = 0; col < this.width; col++) {
