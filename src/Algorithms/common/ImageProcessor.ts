@@ -69,18 +69,18 @@ export class ImageProcessor {
       this.height,
     )
 
-    for (let y = 0; y < this.height; y++) {
-      for (let x = 0; x < this.width; x++) {
-        const r = this.getPixelValueAt(y, x, ColorChannels.RED);
-        const g = this.getPixelValueAt(y, x, ColorChannels.GREEN);
-        const b = this.getPixelValueAt(y, x, ColorChannels.BLUE);
-        const a = this.getPixelValueAt(y, x, ColorChannels.ALPHA);
+    for (let row = 0; row < this.height; row++) {
+      for (let col = 0; col < this.width; col++) {
+        const r = this.getPixelValueAt(row, col, ColorChannels.RED);
+        const g = this.getPixelValueAt(row, col, ColorChannels.GREEN);
+        const b = this.getPixelValueAt(row, col, ColorChannels.BLUE);
+        const a = this.getPixelValueAt(row, col, ColorChannels.ALPHA);
 
         const avg = Math.round((r + g + b) / 3);
-        newImageProcessor.setPixelValueAt(y, x, ColorChannels.RED, avg);
-        newImageProcessor.setPixelValueAt(y, x, ColorChannels.GREEN, avg);
-        newImageProcessor.setPixelValueAt(y, x, ColorChannels.BLUE, avg);
-        newImageProcessor.setPixelValueAt(y, x, ColorChannels.ALPHA, a);
+        newImageProcessor.setPixelValueAt(row, col, ColorChannels.RED, avg);
+        newImageProcessor.setPixelValueAt(row, col, ColorChannels.GREEN, avg);
+        newImageProcessor.setPixelValueAt(row, col, ColorChannels.BLUE, avg);
+        newImageProcessor.setPixelValueAt(row, col, ColorChannels.ALPHA, a);
       }
     }
 
