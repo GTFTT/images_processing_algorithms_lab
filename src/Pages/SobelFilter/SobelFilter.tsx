@@ -9,6 +9,7 @@ export function SobelFilter(): JSX.Element {
   const canvasHRef = useRef<HTMLCanvasElement>(null);
   const canvasVRef = useRef<HTMLCanvasElement>(null);
   const canvasCombinedRef = useRef<HTMLCanvasElement>(null);
+  const canvasCombinedColorfulRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const img = new Image();
@@ -27,13 +28,19 @@ export function SobelFilter(): JSX.Element {
         console.warn('Canvas C was not loaded');
         return;
       }
+      if(!canvasCombinedColorfulRef || !canvasCombinedColorfulRef.current) {
+        console.warn('Canvas CC was not loaded');
+        return;
+      }
       const contextH = canvasHRef.current.getContext('2d');
       const contextV = canvasVRef.current.getContext('2d');
       const contextC = canvasCombinedRef.current.getContext('2d');
+      const contextCC = canvasCombinedColorfulRef.current.getContext('2d');
 
       if(!contextH) throw new Error(`Missing context H`);
       if(!contextV) throw new Error(`Missing context V`);
       if(!contextC) throw new Error(`Missing context C`);
+      if(!contextCC) throw new Error(`Missing context CC`);
 
       canvasHRef.current.width = img.width;
       canvasHRef.current.height = img.height;
@@ -41,10 +48,13 @@ export function SobelFilter(): JSX.Element {
       canvasVRef.current.height = img.height;
       canvasCombinedRef.current.width = img.width;
       canvasCombinedRef.current.height = img.height;
+      canvasCombinedColorfulRef.current.width = img.width;
+      canvasCombinedColorfulRef.current.height = img.height;
 
       contextH.drawImage(img, 0, 0);
       contextV.drawImage(img, 0, 0);
       contextC.drawImage(img, 0, 0);
+      contextCC.drawImage(img, 0, 0);
       const imageData = contextH.getImageData(0, 0, img.width, img.height);
       const imgProcessor = new ImageProcessor(
         imageData.data,
@@ -59,10 +69,12 @@ export function SobelFilter(): JSX.Element {
       const horizontalSobel = filter.applyHorizontalSobel(grayScaleH);
       const verticalSobel = filter.applyVerticalSobel(grayScaleV);
       const combinedSobel = filter.applyCombinedSobel(grayScaleC);
+      const combinedColorfulSobel = filter.applyCombinedSobel(imgProcessor.duplicate());
 
       contextH.putImageData(horizontalSobel.getImageData(), 0, 0);
       contextV.putImageData(verticalSobel.getImageData(), 0, 0);
       contextC.putImageData(combinedSobel.getImageData(), 0, 0);
+      contextCC.putImageData(combinedColorfulSobel.getImageData(), 0, 0);
     }
   }, []);
 
@@ -89,5 +101,7 @@ export function SobelFilter(): JSX.Element {
     <canvas ref={canvasVRef} />
     <Divider> Combined Sobel </Divider>
     <canvas ref={canvasCombinedRef} />
+    <Divider> Combined Sobel with colorful image </Divider>
+    <canvas ref={canvasCombinedColorfulRef} />
   </div>
 }
