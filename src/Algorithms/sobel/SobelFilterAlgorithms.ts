@@ -88,15 +88,4 @@ export class SobelFilterAlgorithms {
       (kernel[2][2] * image.getPixelValueAt(row + 1, col + 1, ColorChannels.RED))
     );
   }
-
 }
-
-// (kernel[0][0] * image.getPixelValueAt(row - 1, col - 1, ColorChannels.RED)) +
-// (kernel[0][1] * image.getPixelValueAt(row - 1, col, ColorChannels.RED)) +
-// (kernel[0][2] * image.getPixelValueAt(row - 1, col + 1, ColorChannels.RED)) +
-// (kernel[1][0] * image.getPixelValueAt(row, col-1, ColorChannels.RED)) +
-// (kernel[1][1] * image.getPixelValueAt(row, col, ColorChannels.RED)) +
-// (kernel[1][2] * image.getPixelValueAt(row, col+1, ColorChannels.RED)) +
-// (kernel[2][0] * image.getPixelValueAt(row + 1, col - 1, ColorChannels.RED)) +
-// (kernel[2][1] * image.getPixelValueAt(row + 1, col, ColorChannels.RED)) +
-// (kernel[2][2] * image.getPixelValueAt(row + 1, col + 1, ColorChannels.RED))
