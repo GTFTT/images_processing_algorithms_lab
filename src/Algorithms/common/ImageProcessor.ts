@@ -18,7 +18,7 @@ export class ImageProcessor {
     this.height = height;
   }
 
-  public getPixelValueAt(row: number, col: number, channel: ColorChannels): number {
+  public getPixelValueAt(row: number, col: number, channel: ColorChannels = ColorChannels.RED): number {
     const pixelIndex = ((this.width * row) + col) * 4;
     let channelValue: number;
     switch (channel) {
