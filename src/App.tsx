@@ -4,9 +4,10 @@ import './App.css';
 import {Menu} from "./Components/Menu/Menu";
 import {SobelFilterLibrary} from "./Pages/SobelFilterLibrary/SobelFilterLibrary";
 import {SobelFilter} from "./Pages/SobelFilter/SobelFilter";
+import {HarrisCornerDetection} from "./Pages/HarrisCornerDetection/HarrisCornerDetection";
 
 function App() {
-  const [selectedMenuItem, setSelectedMenuItem] = useState(1);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(2);
   return (
     <div className="App">
       <Menu
@@ -24,6 +25,11 @@ function App() {
             id: 1,
             label: `Sobel's filter`,
             component: <SobelFilter />
+          },
+          {
+            id: 2,
+            label: `Harris corner detection`,
+            component: <HarrisCornerDetection />
           },
         ]}
       />
