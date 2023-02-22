@@ -5,9 +5,10 @@ import {Menu} from "./Components/Menu/Menu";
 import {SobelFilterLibrary} from "./Pages/SobelFilterLibrary/SobelFilterLibrary";
 import {SobelFilter} from "./Pages/SobelFilter/SobelFilter";
 import {HarrisCornerDetection} from "./Pages/HarrisCornerDetection/HarrisCornerDetection";
+import { PeopleSearching } from './Pages/PeopleSearching/PeopleSearching';
 
 function App() {
-  const [selectedMenuItem, setSelectedMenuItem] = useState(2);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(3);
   return (
     <div className="App">
       <Menu
@@ -30,6 +31,11 @@ function App() {
             id: 2,
             label: `Harris corner detection`,
             component: <HarrisCornerDetection />
+          },
+          {
+            id: 3,
+            label: `People searching with tensorflow`,
+            component: <PeopleSearching />
           },
         ]}
       />
