@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import { Divider, Image as AntdImage } from 'antd';
-import PeopleImage from './people_walking.jpg';
+import PeopleWalkingImage from './people_walking.jpg';
+import PeopleWalking2Image from './people_walking_2.jpg';
 import {ImageProcessor} from "../../Algorithms/common/ImageProcessor";
 const cocoSsd = require('@tensorflow-models/coco-ssd');
 
@@ -11,7 +12,8 @@ export function PeopleSearching(): JSX.Element {
   useEffect(() => {
     const img = new Image();
     setImage(img);
-    img.src = PeopleImage;
+    img.src = PeopleWalkingImage;
+    // img.src = PeopleWalking2Image; // Use it if you want another image
     img.onload = (e) => {
       const currentCanvas = canvasRef.current;
       if(!currentCanvas) {
@@ -60,7 +62,7 @@ export function PeopleSearching(): JSX.Element {
     ? <AntdImage
         width={image?.width}
         height={image?.height}
-        src={PeopleImage}
+        src={PeopleWalkingImage}
       />
     : undefined;
 
